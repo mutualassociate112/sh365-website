@@ -6,322 +6,285 @@
   <title>Smart Healthcare 365 — Home Care Agency Management Platform</title>
   <meta name="description" content="The all-in-one SaaS platform for home care agencies. Manage caregivers, patients, scheduling, compliance, payroll, and more.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --blue: #1e5fa6;
-      --blue-dark: #164a82;
-      --blue-light: #e8f0fe;
-      --orange: #f5a623;
-      --orange-dark: #d4901a;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-500: #6b7280;
-      --gray-700: #374151;
-      --gray-900: #111827;
-      --white: #ffffff;
-    }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--gray-700); line-height: 1.6; }
-    a { text-decoration: none; color: inherit; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-    /* Nav */
-    nav { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 50; }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .nav-logo { height: 48px; }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 15px; font-weight: 500; color: var(--gray-700); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--blue); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
-    .btn-primary { background: var(--blue); color: var(--white); }
-    .btn-primary:hover { background: var(--blue-dark); }
-    .btn-orange { background: var(--orange); color: var(--white); }
-    .btn-orange:hover { background: var(--orange-dark); }
-    .btn-outline { border: 2px solid var(--blue); color: var(--blue); background: transparent; }
-    .btn-outline:hover { background: var(--blue); color: var(--white); }
-    .btn-large { padding: 16px 36px; font-size: 17px; border-radius: 10px; }
-
-    /* Hero */
-    .hero { padding: 80px 0 100px; background: linear-gradient(135deg, var(--blue-light) 0%, var(--white) 100%); }
-    .hero-inner { display: flex; align-items: center; gap: 60px; }
-    .hero-text { flex: 1; }
-    .hero-text h1 { font-size: 48px; font-weight: 800; color: var(--gray-900); line-height: 1.15; margin-bottom: 20px; }
-    .hero-text h1 span { color: var(--blue); }
-    .hero-text p { font-size: 20px; color: var(--gray-500); margin-bottom: 32px; max-width: 520px; }
-    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-visual { flex: 1; display: flex; justify-content: center; }
-    .hero-graphic { width: 100%; max-width: 500px; border-radius: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.12); background: var(--white); overflow: hidden; }
-    .hero-graphic img { width: 100%; display: block; }
-    .hero-mock { background: var(--white); border-radius: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.12); padding: 24px; }
-    .mock-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-    .mock-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .mock-bar { height: 20px; background: var(--gray-100); border-radius: 4px; margin-bottom: 12px; }
-    .mock-card { background: var(--blue-light); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
-    .mock-card-sm { height: 12px; background: var(--gray-200); border-radius: 3px; width: 60%; margin-top: 8px; }
-
-    /* Features */
-    .features { padding: 100px 0; }
-    .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 36px; font-weight: 800; color: var(--gray-900); margin-bottom: 16px; }
-    .section-title p { font-size: 18px; color: var(--gray-500); max-width: 600px; margin: 0 auto; }
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .feature-card { padding: 32px; border-radius: 12px; border: 1px solid var(--gray-200); transition: all 0.3s; }
-    .feature-card:hover { border-color: var(--blue); box-shadow: 0 10px 30px rgba(30,95,166,0.08); transform: translateY(-2px); }
-    .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
-    .feature-card h3 { font-size: 20px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
-    .feature-card p { font-size: 15px; color: var(--gray-500); }
-
-    /* Stats */
-    .stats { padding: 80px 0; background: var(--blue); color: var(--white); }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
-    .stat-number { font-size: 48px; font-weight: 800; }
-    .stat-label { font-size: 16px; opacity: 0.8; margin-top: 4px; }
-
-    /* Pricing */
-    .pricing { padding: 100px 0; background: var(--gray-50); }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 960px; margin: 0 auto; }
-    .price-card { background: var(--white); border-radius: 16px; padding: 40px 32px; border: 2px solid var(--gray-200); text-align: center; transition: all 0.3s; }
-    .price-card.featured { border-color: var(--blue); transform: scale(1.05); box-shadow: 0 20px 40px rgba(30,95,166,0.12); }
-    .price-card .badge { display: inline-block; background: var(--orange); color: var(--white); padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; }
-    .price-card h3 { font-size: 24px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
-    .price-amount { font-size: 48px; font-weight: 800; color: var(--blue); }
-    .price-amount span { font-size: 18px; font-weight: 400; color: var(--gray-500); }
-    .price-card ul { list-style: none; margin: 24px 0; text-align: left; }
-    .price-card li { padding: 8px 0; font-size: 15px; color: var(--gray-700); display: flex; align-items: center; gap: 8px; }
-    .price-card li::before { content: "✓"; color: var(--blue); font-weight: 700; }
-
-    /* CTA */
-    .cta { padding: 100px 0; text-align: center; background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); color: var(--white); }
-    .cta h2 { font-size: 40px; font-weight: 800; margin-bottom: 16px; }
-    .cta p { font-size: 20px; opacity: 0.85; margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-    /* Footer */
-    footer { padding: 60px 0 40px; background: var(--gray-900); color: var(--gray-500); }
-    .footer-inner { display: flex; justify-content: space-between; align-items: start; gap: 40px; margin-bottom: 40px; }
-    .footer-brand p { max-width: 300px; margin-top: 12px; font-size: 14px; }
-    .footer-links h4 { color: var(--white); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
-    .footer-links a { display: block; font-size: 14px; padding: 4px 0; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--white); }
-    .footer-bottom { border-top: 1px solid #374151; padding-top: 24px; text-align: center; font-size: 14px; }
-
-    @media (max-width: 768px) {
-      .hero-inner { flex-direction: column; text-align: center; }
-      .hero-text h1 { font-size: 32px; }
-      .hero-text p { margin: 0 auto 24px; }
-      .hero-buttons { justify-content: center; }
-      .features-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .price-card.featured { transform: none; }
-      .footer-inner { flex-direction: column; }
-      .nav-links { gap: 16px; }
-    }
-  </style>
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="antialiased text-gray-700">
 
 <!-- Nav -->
-<nav>
-  <div class="container nav-inner">
-    <img src="logo.jpg" alt="Smart Healthcare 365" class="nav-logo">
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="https://app.smarthealthcare365.com" class="btn btn-primary">Sign In</a>
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-18">
+    <img src="/logo.jpg" alt="Smart Healthcare 365" class="h-12">
+    <div class="flex items-center gap-8">
+      <a href="#features" class="hidden sm:block text-sm font-medium text-gray-600 hover:text-blue-700 transition">Features</a>
+      <a href="#pricing" class="hidden sm:block text-sm font-medium text-gray-600 hover:text-blue-700 transition">Pricing</a>
+      <a href="#contact" class="hidden sm:block text-sm font-medium text-gray-600 hover:text-blue-700 transition">Contact</a>
+      <a href="https://app.smarthealthcare365.com" class="px-5 py-2.5 bg-blue-700 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition shadow-sm">Sign In</a>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
-<section class="hero">
-  <div class="container hero-inner">
-    <div class="hero-text">
-      <h1>Run Your Home Care Agency <span>Smarter</span></h1>
-      <p>The all-in-one platform to manage caregivers, patients, scheduling, compliance, payroll, and everything in between — built for agencies of every size.</p>
-      <div class="hero-buttons">
-        <a href="https://app.smarthealthcare365.com" class="btn btn-orange btn-large">Start Free Trial</a>
-        <a href="#features" class="btn btn-outline btn-large">See Features</a>
+<section class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-orange-50 pt-20 pb-28">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+    <div class="flex-1 text-center lg:text-left">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold mb-6 uppercase tracking-wide">
+        Built for Home Care Agencies
       </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+        Run Your Agency <span class="text-blue-700">Smarter</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-500 mb-8 max-w-xl mx-auto lg:mx-0">
+        The all-in-one platform to manage caregivers, patients, scheduling, compliance, payroll, and everything in between.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+        <a href="https://app.smarthealthcare365.com" class="px-8 py-3.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/25 text-lg">
+          Start Free Trial
+        </a>
+        <a href="#features" class="px-8 py-3.5 border-2 border-blue-700 text-blue-700 font-semibold rounded-xl hover:bg-blue-700 hover:text-white transition text-lg">
+          See Features
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-gray-400">No credit card required. Free 14-day trial.</p>
     </div>
-    <div class="hero-visual">
-      <div class="hero-mock">
-        <div class="mock-header">
-          <div class="mock-dot" style="background:#ef4444"></div>
-          <div class="mock-dot" style="background:#f59e0b"></div>
-          <div class="mock-dot" style="background:#22c55e"></div>
+    <div class="flex-1 w-full max-w-lg">
+      <div class="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          <span class="ml-2 text-xs text-gray-400">Smart Healthcare 365</span>
         </div>
-        <div class="mock-bar" style="width:40%"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
-          <div class="mock-card"><div style="font-size:24px;font-weight:800;color:var(--blue)">34</div><div style="font-size:11px;color:var(--gray-500)">Caregivers</div></div>
-          <div class="mock-card"><div style="font-size:24px;font-weight:800;color:var(--orange)">13</div><div style="font-size:11px;color:var(--gray-500)">Patients</div></div>
-          <div class="mock-card"><div style="font-size:24px;font-weight:800;color:#22c55e">98%</div><div style="font-size:11px;color:var(--gray-500)">Compliance</div></div>
+        <div class="grid grid-cols-3 gap-3 mb-4">
+          <div class="bg-blue-50 rounded-xl p-4 text-center">
+            <div class="text-2xl font-extrabold text-blue-700">34</div>
+            <div class="text-[11px] text-gray-500 mt-1">Caregivers</div>
+          </div>
+          <div class="bg-orange-50 rounded-xl p-4 text-center">
+            <div class="text-2xl font-extrabold text-orange-500">13</div>
+            <div class="text-[11px] text-gray-500 mt-1">Patients</div>
+          </div>
+          <div class="bg-green-50 rounded-xl p-4 text-center">
+            <div class="text-2xl font-extrabold text-green-600">98%</div>
+            <div class="text-[11px] text-gray-500 mt-1">Compliance</div>
+          </div>
         </div>
-        <div class="mock-bar"></div>
-        <div class="mock-bar" style="width:75%"></div>
-        <div class="mock-bar" style="width:55%"></div>
+        <div class="space-y-2">
+          <div class="h-3 bg-gray-100 rounded-full w-full"></div>
+          <div class="h-3 bg-gray-100 rounded-full w-4/5"></div>
+          <div class="h-3 bg-gray-100 rounded-full w-3/5"></div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <div class="flex-1 h-20 bg-blue-50 rounded-lg"></div>
+          <div class="flex-1 h-20 bg-orange-50 rounded-lg"></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Features -->
-<section class="features" id="features">
-  <div class="container">
-    <div class="section-title">
-      <h2>Everything You Need to Run Your Agency</h2>
-      <p>From onboarding to payroll, Smart Healthcare 365 handles the complexity so you can focus on care.</p>
+<!-- Trusted By -->
+<section class="py-12 bg-white border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">Trusted by home care agencies across the country</p>
+    <div class="flex flex-wrap justify-center items-center gap-12 opacity-40">
+      <span class="text-2xl font-bold text-gray-400">Agency One</span>
+      <span class="text-2xl font-bold text-gray-400">CareFirst</span>
+      <span class="text-2xl font-bold text-gray-400">HomeBridge</span>
+      <span class="text-2xl font-bold text-gray-400">VitalCare</span>
+      <span class="text-2xl font-bold text-gray-400">NurseLink</span>
     </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon" style="background:var(--blue-light)">👤</div>
-        <h3>Caregiver Management</h3>
-        <p>Full profiles, onboarding wizard, compliance tracking, document management, and credential expiry alerts.</p>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Everything You Need to Run Your Agency</h2>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">From onboarding to payroll, Smart Healthcare 365 handles the complexity so you can focus on care.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl mb-5">👤</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Caregiver Management</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Full profiles, onboarding wizard, compliance tracking, document management, and credential expiry alerts.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#fef3c7">🏥</div>
-        <h3>Patient Management</h3>
-        <p>Patient intake, medical history, diagnoses, medications, allergies, physician info, and care level assignment.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center text-2xl mb-5">🏥</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Patient Management</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Patient intake, medical history, diagnoses, medications, allergies, physician info, and care level assignment.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#d1fae5">📅</div>
-        <h3>Scheduling</h3>
-        <p>Calendar-based scheduling with conflict detection, bulk shift creation, and caregiver-patient matching.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl mb-5">📅</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Scheduling</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Calendar-based scheduling with conflict detection, bulk shift creation, and caregiver-patient matching.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#e0e7ff">📄</div>
-        <h3>Compliance & Documents</h3>
-        <p>Track HHA licenses, CPR, TB tests, background checks, and more. Get alerts before documents expire.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-2xl mb-5">📄</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Compliance & Documents</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Track HHA licenses, CPR, TB tests, background checks, and more. Get alerts before documents expire.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#fce7f3">💰</div>
-        <h3>HR & Payroll</h3>
-        <p>Time clock, attendance tracking, overtime calculation, and payroll reports — all in one place.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">💰</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">HR & Payroll</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Time clock, attendance tracking, overtime calculation, and payroll reports — all in one place.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#fff7ed">💬</div>
-        <h3>SMS Messaging</h3>
-        <p>Two-way SMS with caregivers and patients. Smart routing, templates, and conversation threading.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-2xl mb-5">💬</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">SMS Messaging</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Two-way SMS with caregivers and patients. Smart routing, templates, and conversation threading.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#f0fdf4">📁</div>
-        <h3>Case Management</h3>
-        <p>Track cases, complaints, and incidents with notes, documents, and resolution workflows.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-5">📁</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Case Management</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Track cases, complaints, and incidents with notes, documents, and resolution workflows.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#eff6ff">🔐</div>
-        <h3>Role-Based Access</h3>
-        <p>Owner, Admin, Supervisor, Coordinator, Caregiver, Billing — each sees only what they need.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center text-2xl mb-5">🔐</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Role-Based Access</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Owner, Admin, Supervisor, Coordinator, Caregiver, Billing — each sees only what they need.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:#fef9c3">📊</div>
-        <h3>Reporting & Analytics</h3>
-        <p>Dashboard with real-time metrics, survey results, audit trails, and activity logs.</p>
+      <div class="group p-8 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
+        <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-2xl mb-5">📊</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Reporting & Analytics</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Dashboard with real-time metrics, survey results, audit trails, and activity logs.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Stats -->
-<section class="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div><div class="stat-number">30+</div><div class="stat-label">Features Built-In</div></div>
-      <div><div class="stat-number">99.9%</div><div class="stat-label">Uptime SLA</div></div>
-      <div><div class="stat-number">HIPAA</div><div class="stat-label">Compliant</div></div>
-      <div><div class="stat-number">24/7</div><div class="stat-label">Support</div></div>
+<section class="py-20 bg-blue-700">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
+      <div><div class="text-5xl font-extrabold">30+</div><div class="text-blue-200 mt-2">Features Built-In</div></div>
+      <div><div class="text-5xl font-extrabold">99.9%</div><div class="text-blue-200 mt-2">Uptime SLA</div></div>
+      <div><div class="text-5xl font-extrabold">HIPAA</div><div class="text-blue-200 mt-2">Compliant</div></div>
+      <div><div class="text-5xl font-extrabold">24/7</div><div class="text-blue-200 mt-2">Support</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Up and Running in Minutes</h2>
+      <p class="text-lg text-gray-500">Getting started is simple — no installation, no hardware, no IT team needed.</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-12 max-w-4xl mx-auto">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-extrabold mx-auto mb-5">1</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Register Your Agency</h3>
+        <p class="text-sm text-gray-500">Create your account in 30 seconds. Enter your agency name and you're in.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-orange-500 text-white rounded-2xl flex items-center justify-center text-2xl font-extrabold mx-auto mb-5">2</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Add Your Team</h3>
+        <p class="text-sm text-gray-500">Invite staff with role-based access. Import caregivers and patients in bulk.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center text-2xl font-extrabold mx-auto mb-5">3</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Start Managing</h3>
+        <p class="text-sm text-gray-500">Schedule shifts, track compliance, run payroll, and focus on what matters — patient care.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Pricing -->
-<section class="pricing" id="pricing">
-  <div class="container">
-    <div class="section-title">
-      <h2>Simple, Transparent Pricing</h2>
-      <p>Choose the plan that fits your agency. No hidden fees, no contracts.</p>
+<section id="pricing" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
+      <p class="text-lg text-gray-500">Choose the plan that fits your agency. No hidden fees, no contracts.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <h3>Basic</h3>
-        <div class="price-amount">$99<span>/mo</span></div>
-        <ul>
-          <li>Up to 50 caregivers</li>
-          <li>Unlimited patients</li>
-          <li>Scheduling</li>
-          <li>Compliance tracking</li>
-          <li>SMS messaging</li>
-          <li>Email support</li>
+    <div class="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="bg-white rounded-2xl border-2 border-gray-200 p-10 text-center hover:border-blue-300 transition">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Basic</h3>
+        <div class="mb-6"><span class="text-5xl font-extrabold text-blue-700">$99</span><span class="text-gray-500">/mo</span></div>
+        <ul class="text-left space-y-3 mb-8">
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Up to 50 caregivers</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Unlimited patients</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Scheduling</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Compliance tracking</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> SMS messaging</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Email support</li>
         </ul>
-        <a href="https://app.smarthealthcare365.com" class="btn btn-outline" style="width:100%">Get Started</a>
+        <a href="https://app.smarthealthcare365.com" class="block w-full py-3 border-2 border-blue-700 text-blue-700 font-semibold rounded-xl hover:bg-blue-700 hover:text-white transition">Get Started</a>
       </div>
-      <div class="price-card featured">
-        <div class="badge">Most Popular</div>
-        <h3>Pro</h3>
-        <div class="price-amount">$249<span>/mo</span></div>
-        <ul>
-          <li>Unlimited caregivers</li>
-          <li>Unlimited patients</li>
-          <li>Everything in Basic</li>
-          <li>Payroll & time tracking</li>
-          <li>Custom reports</li>
-          <li>Priority support</li>
+      <div class="bg-white rounded-2xl border-2 border-blue-600 p-10 text-center shadow-xl shadow-blue-500/10 relative lg:scale-105">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-500 text-white px-5 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Most Popular</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro</h3>
+        <div class="mb-6"><span class="text-5xl font-extrabold text-blue-700">$249</span><span class="text-gray-500">/mo</span></div>
+        <ul class="text-left space-y-3 mb-8">
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Unlimited caregivers</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Unlimited patients</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Everything in Basic</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Payroll & time tracking</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Custom reports</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Priority support</li>
         </ul>
-        <a href="https://app.smarthealthcare365.com" class="btn btn-primary" style="width:100%">Start Free Trial</a>
+        <a href="https://app.smarthealthcare365.com" class="block w-full py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 transition shadow-lg shadow-blue-700/25">Start Free Trial</a>
       </div>
-      <div class="price-card">
-        <h3>Enterprise</h3>
-        <div class="price-amount">Custom</div>
-        <ul>
-          <li>Multi-location support</li>
-          <li>Everything in Pro</li>
-          <li>SSO / Active Directory</li>
-          <li>API access</li>
-          <li>Custom integrations</li>
-          <li>Dedicated account manager</li>
+      <div class="bg-white rounded-2xl border-2 border-gray-200 p-10 text-center hover:border-blue-300 transition">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+        <div class="mb-6"><span class="text-5xl font-extrabold text-blue-700">Custom</span></div>
+        <ul class="text-left space-y-3 mb-8">
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Multi-location support</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Everything in Pro</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> SSO / Active Directory</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> API access</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Custom integrations</li>
+          <li class="flex items-center gap-2 text-sm"><span class="text-blue-600 font-bold">&#10003;</span> Dedicated account manager</li>
         </ul>
-        <a href="mailto:sales@smarthealthcare365.com" class="btn btn-outline" style="width:100%">Contact Sales</a>
+        <a href="mailto:sales@smarthealthcare365.com" class="block w-full py-3 border-2 border-blue-700 text-blue-700 font-semibold rounded-xl hover:bg-blue-700 hover:text-white transition">Contact Sales</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
-  <div class="container">
-    <h2>Ready to Modernize Your Agency?</h2>
-    <p>Join agencies already using Smart Healthcare 365 to streamline operations and improve care.</p>
-    <a href="https://app.smarthealthcare365.com" class="btn btn-orange btn-large">Start Your Free Trial</a>
+<section id="contact" class="py-24 bg-gradient-to-br from-blue-700 to-blue-900 text-white text-center">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-3xl sm:text-5xl font-extrabold mb-6">Ready to Modernize Your Agency?</h2>
+    <p class="text-xl text-blue-200 mb-10">Join agencies already using Smart Healthcare 365 to streamline operations and improve care.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="https://app.smarthealthcare365.com" class="px-10 py-4 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/30 text-lg">Start Your Free Trial</a>
+      <a href="mailto:sales@smarthealthcare365.com" class="px-10 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition text-lg">Talk to Sales</a>
+    </div>
+    <p class="mt-6 text-sm text-blue-300">No credit card required. Free 14-day trial.</p>
   </div>
 </section>
 
 <!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="logo.jpg" alt="Smart Healthcare 365" style="height:40px;filter:brightness(2)">
-        <p>The all-in-one platform for home care agency management.</p>
+<footer class="bg-gray-900 text-gray-400 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div>
+        <img src="/logo.jpg" alt="Smart Healthcare 365" class="h-10 brightness-200 mb-4">
+        <p class="text-sm leading-relaxed">The all-in-one platform for home care agency management. Built with compliance, efficiency, and care in mind.</p>
       </div>
-      <div class="footer-links">
-        <h4>Product</h4>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="https://app.smarthealthcare365.com">Sign In</a>
+      <div>
+        <h4 class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Product</h4>
+        <a href="#features" class="block text-sm py-1.5 hover:text-white transition">Features</a>
+        <a href="#pricing" class="block text-sm py-1.5 hover:text-white transition">Pricing</a>
+        <a href="https://app.smarthealthcare365.com" class="block text-sm py-1.5 hover:text-white transition">Sign In</a>
       </div>
-      <div class="footer-links">
-        <h4>Company</h4>
-        <a href="mailto:info@smarthealthcare365.com">Contact</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+      <div>
+        <h4 class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Company</h4>
+        <a href="mailto:info@smarthealthcare365.com" class="block text-sm py-1.5 hover:text-white transition">Contact</a>
+        <a href="#" class="block text-sm py-1.5 hover:text-white transition">Privacy Policy</a>
+        <a href="#" class="block text-sm py-1.5 hover:text-white transition">Terms of Service</a>
       </div>
-      <div class="footer-links">
-        <h4>Support</h4>
-        <a href="mailto:support@smarthealthcare365.com">Email Support</a>
-        <a href="#">Help Center</a>
+      <div>
+        <h4 class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Support</h4>
+        <a href="mailto:support@smarthealthcare365.com" class="block text-sm py-1.5 hover:text-white transition">Email Support</a>
+        <a href="#" class="block text-sm py-1.5 hover:text-white transition">Help Center</a>
+        <a href="#" class="block text-sm py-1.5 hover:text-white transition">API Docs</a>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="border-t border-gray-800 pt-8 text-center text-sm">
       &copy; 2026 Smart Healthcare 365. All rights reserved.
     </div>
   </div>
